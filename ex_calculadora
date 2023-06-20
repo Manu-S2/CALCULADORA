@@ -1,0 +1,50 @@
+import PySimpleGUI as sg
+
+
+sg.theme("LightGrey1")
+
+
+layout = [
+    [sg.Push()],[sg.Push()],
+    [sg.Push(),sg.Input(size=(25, 1), key='-DISPLAY-', justification='right'),sg.Push()],
+    [sg.Push()],[sg.Push()],[sg.Push()],
+    [sg.Push(),sg.B('7'), sg.B('8'), sg.B('9'), sg.B('/'),sg.Push()],
+    [sg.Push(),sg.B('4'), sg.B('5'), sg.B('6'), sg.B('*'),sg.Push()],
+    [sg.Push(),sg.B('1'), sg.B('2'), sg.B('3'), sg.B('-'),sg.Push()],
+    [sg.Push(),sg.B('0'), sg.B('C'), sg.B('='), sg.B('+'),sg.Push()],
+    [sg.Push()]
+]
+
+
+window = sg.Window('Calculadora', layout)
+
+
+expression = ''
+while True:
+    event, values = window.read()
+    
+   
+    if event == sg.WINDOW_CLOSED:
+        break
+    
+   
+    if event in '1234567890':
+        expression += event
+    elif event == 'C':
+        expression = ''
+    elif event in ['+', '-', '*', '/']:
+        expression += event
+    elif event == '=':
+        try:
+            expression = str(eval(expression))
+        except:
+            expression = 'Erro'
+    
+   
+    window['-DISPLAY-'].update(expression)
+
+
+window.close()
+      
+      
+      
